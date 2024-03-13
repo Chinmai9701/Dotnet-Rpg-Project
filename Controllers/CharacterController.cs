@@ -17,15 +17,15 @@ namespace Dotnet_Rpg_Project.Controllers
       
 
         [HttpGet("GetAll")]
-        public ActionResult<List<Character>> GetAll()
+        public async Task<ActionResult<List<Character>>> GetAll()
         {
-            return Ok(_characterService.GetAllCharacters());
+            return Ok(await _characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Character> GetSingle(int id)
+        public async Task<ActionResult<Character>> GetSingle(int id)
         {
-            var character = _characterService.GetCharacterById(id);
+            var character = await _characterService.GetCharacterById(id);
             if (character is not null)
             {
                 return Ok(character);
@@ -34,9 +34,9 @@ namespace Dotnet_Rpg_Project.Controllers
         }
 
         [HttpPost]
-        public ActionResult<List<Character>> AddCharacter(Character newCharacter)
+        public async Task<ActionResult<List<Character>>> AddCharacter(Character newCharacter)
         {
-            return Ok(_characterService.AddCharacter(newCharacter));
+            return Ok(await _characterService.AddCharacter(newCharacter));
         }
     }
 }
