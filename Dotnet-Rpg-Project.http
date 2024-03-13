@@ -1,0 +1,6 @@
+@Dotnet_Rpg_Project_HostAddress = http://localhost:5048
+
+GET {{Dotnet_Rpg_Project_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
