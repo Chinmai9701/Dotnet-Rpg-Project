@@ -1,4 +1,5 @@
-﻿using Dotnet_Rpg_Project.Models;
+﻿using Dotnet_Rpg_Project.DTO.Character;
+using Dotnet_Rpg_Project.Models;
 using Dotnet_Rpg_Project.Services.CharacterService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,13 +18,13 @@ namespace Dotnet_Rpg_Project.Controllers
       
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> GetAll()
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> GetAll()
         {
             return Ok(await _characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<Character>>> GetSingle(int id)
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int id)
         {
             var character = await _characterService.GetCharacterById(id);
             if (character is not null)
@@ -34,7 +35,7 @@ namespace Dotnet_Rpg_Project.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> AddCharacter(Character newCharacter)
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddCharacterDto newCharacter)
         {
             return Ok(await _characterService.AddCharacter(newCharacter));
         }
