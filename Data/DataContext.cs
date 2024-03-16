@@ -10,7 +10,7 @@ namespace Dotnet_Rpg_Project.Data
         {
 
         }
-        public DbSet<Character> characters => Set<Character>();
+        public DbSet<Character> Characters => Set<Character>();
 
     }
 }
