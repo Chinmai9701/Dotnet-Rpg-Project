@@ -8,11 +8,7 @@ namespace Dotnet_Rpg_Project.Services.CharacterService
 {
     public class CharacterService : ICharacterService
     {
-        private static List<Character> characters = new List<Character>
-        {
-            new Character(),
-            new Character {Id = 2, Name = "Sam"}
-        };
+       
         private readonly IMapper _mapper;
         private readonly DataContext _context;
 
@@ -38,13 +34,14 @@ namespace Dotnet_Rpg_Project.Services.CharacterService
 
             try
             {
-                var character = characters.FirstOrDefault(c => c.Id == id);
+                var character = await _context.Characters.FirstOrDefaultAsync(c => c.Id == id);
 
                 if (character is null)
                     throw new Exception($"Character with id '{id}' not found");
 
-                characters.Remove(character);
-                serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+                _context.Characters.Remove(character);
+                await _context.SaveChangesAsync();
+                serviceResponse.Data = await _context.Characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToListAsync();
 
             }
             catch (Exception ex)
